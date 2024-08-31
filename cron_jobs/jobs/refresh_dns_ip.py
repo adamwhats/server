@@ -5,9 +5,9 @@ import sys
 import requests
 from logger import get_logger
 
-API_TOKEN = os.getenv("DESEC_TOKEN")
+API_TOKEN = "JBorDeyg6yQbpKcaBK8DchP8XQ5o"
 DOMAIN_NAME = "goosenet.cloud"
-DNS_RECORD_ENDPOINT = f"https://desec.io/api/v1/domains/{DOMAIN_NAME}/rrsets/ipv4/A/"
+DNS_RECORD_ENDPOINT = f"https://desec.io/api/v1/domains/{DOMAIN_NAME}/rrsets/@/A/"
 PUBLIC_IP_ENDPOINT = "https://api.ipify.org?format=json"
 logger = get_logger("refresh_dns_ip")
 
@@ -18,7 +18,7 @@ def get_actual_ip() -> str | None:
         response = requests.get(PUBLIC_IP_ENDPOINT)
         response.raise_for_status()
         public_ip = response.json()["ip"]
-        logger.info(f"Current public IP: {public_ip}")
+        logger.debug(f"Current public IP: {public_ip}")
         return public_ip
     except requests.RequestException as e:
         logger.error(f"Error fetching current public IP address: {e}")
@@ -31,7 +31,7 @@ def get_current_dns_ip() -> str | None:
         response = requests.get(DNS_RECORD_ENDPOINT, headers={"Authorization": f"Token {API_TOKEN}"})
         response.raise_for_status()
         dns_ip = response.json()["records"][0]
-        logger.info(f"Current DNS IP: {dns_ip}")
+        logger.debug(f"Current DNS IP: {dns_ip}")
         return dns_ip
     except requests.RequestException as e:
         logger.error(f"Error fetching existing DNS record: {e}")
@@ -53,7 +53,7 @@ def update_dns_ip(public_ip: str) -> None:
 
 
 def main():
-    logger.info("Running DNS IP refresh script...")
+    logger.debug("Running DNS IP refresh script...")
 
     if not API_TOKEN:
         logger.error("Environment variable 'DESEC_TOKEN' has not been set, aborting")
@@ -67,7 +67,7 @@ def main():
         sys.exit(1)
 
     if dns_ip == public_ip:
-        logger.info("DNS is up to date")
+        logger.debug("DNS is up to date")
     else:
         update_dns_ip(public_ip)
 

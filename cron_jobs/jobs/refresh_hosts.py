@@ -81,7 +81,7 @@ def reload_dnsmasq() -> None:
 
 
 def main():
-    logger.info("Running host refresh script...")
+    logger.debug("Running host refresh script...")
 
     current_host_dict = read_hosts()
     reservations = get_reservations()
@@ -90,7 +90,7 @@ def main():
         sys.exit(1)
 
     if current_host_dict == reservations:
-        logger.info("/etc/hosts is up to date")
+        logger.debug("/etc/hosts is up to date")
     else:
         write_hosts(reservations)
         logger.info("Updated /etc/hosts, reloading dnsmasq...")
