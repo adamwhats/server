@@ -1,15 +1,5 @@
 services:
 
-  # caddy:
-  #   image: caddy:latest
-  #   ports:
-  #     - "80:80"
-  #     - "443:443"
-  #   volumes:
-  #     - ./Caddyfile:/etc/caddy/Caddyfile
-  #     - ./site:/srv/files
-  #   restart: unless-stopped
-
   cron-jobs:
     build: 
       context: .
@@ -33,13 +23,3 @@ services:
       - "53:53/udp"  # DNS port
       - "5380:8080"  # Web UI
     restart: unless-stopped
-    # networks:
-    #   default:
-    #     ipv4_address: 172.18.0.2  # Optional static IP for easy reference
-
-# networks:
-#   default:
-#     driver: bridge
-#     ipam:
-#       config:
-#         - subnet: 172.18.0.0/16

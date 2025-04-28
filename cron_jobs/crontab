@@ -1,5 +1,2 @@
-# Refresh DNS IP address every 30 minutes
-*/30 * * * * python3 /usr/local/bin/refresh_dns_ip.py
-
 # Refesh host-ip pairs every minute
 */1 * * * * python3 /usr/local/bin/refresh_hosts.py
