@@ -1,5 +1,5 @@
 # Goosenet Server
-Documentation and scripts related with my home server, which runs Debian 12 on a small i5 machine. 
+Documentation and scripts related with my home server, which runs Debian 12 on a small n100 machine. 
 
 ## Local
 
