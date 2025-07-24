@@ -39,7 +39,7 @@ def get_reservations() -> dict[str:str] | None:
         account = eero.account()
         network = account["networks"]["data"][0]
         devices = eero.devices(network["url"])
-        hosts_dict = {d["ip"]: d["nickname"] for d in devices if d["ip"] and d["nickname"]}
+        hosts_dict = {d["ip"]: d["hostname"] for d in devices if d["ip"] and d["hostname"]}
     except ClientException as e:
         logger.error("Failed to retreive reservations from router: {e}")
     return hosts_dict
